@@ -18,14 +18,14 @@ const Grid: React.FC<GridProps> = ({ column, row }) => {
   const calcCellSize = () => {
     if (column > row) {
       const viewPortWidth = window.innerWidth;
-      const maxGridWidth = viewPortWidth - 500;
+      const maxGridWidth = viewPortWidth - 460; // 250*2에서 padding 40 제외
       const cellSize = Math.floor(maxGridWidth / column);
       return cellSize;
     }
 
     if (column <= row) {
       const viewPortHeight = window.innerHeight;
-      const maxGridHeight = viewPortHeight - HEADER_HEIGHT - 140;
+      const maxGridHeight = viewPortHeight - HEADER_HEIGHT - 110;
       const cellSize = Math.floor(maxGridHeight / row);
       return cellSize;
     }
@@ -48,21 +48,22 @@ const Grid: React.FC<GridProps> = ({ column, row }) => {
 };
 
 const GridWrapper = styled.div`
-  width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 70px - 40px); // header + T.B padding
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const GridGuide = styled.div<GridProps>`
-  max-width: calc(100vw - 500px);
-  max-height: calc(100vh - 70px - 140px);
+  max-width: calc(100vw - 460px);
+  max-height: calc(100vh - 70px - 100px);
   width: fit-content;
   height: fit-content;
   display: grid;
   grid-template-columns: ${({ column }) => `repeat(${column}, 1fr)`};
   grid-template-rows: ${({ row }) => `repeat(${row}, 1fr)`};
+  box-shadow: rgba(0,0,0,0.1) 10px 10px 20px;
+
 `;
 
 const GridItem = styled.div<GridItemProps>`
