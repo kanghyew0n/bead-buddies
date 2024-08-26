@@ -2,11 +2,12 @@ import React from "react";
 import styled from "@emotion/styled";
 
 interface InputProps {
-  onChange: () => void;
+  value: number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: React.FC<InputProps> = ({ onChange }) => {
-  return <StyledInput onChange={onChange}></StyledInput>;
+const Input: React.FC<InputProps> = ({ value, onChange }) => {
+  return <StyledInput value={value} onChange={onChange}></StyledInput>;
 };
 
 const StyledInput = styled.input`
