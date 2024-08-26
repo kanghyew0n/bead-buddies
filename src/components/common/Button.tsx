@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import buttonStyles from "../assets/styles/button-style";
+import buttonStyles from "../../assets/styles/button-style"
 
 interface ButtonProps {
   role?: "default" | "point" | "dark";

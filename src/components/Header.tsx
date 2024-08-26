@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "./Button";
+import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
 
 const Header = () => {
