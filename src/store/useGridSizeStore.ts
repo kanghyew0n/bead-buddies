@@ -8,8 +8,8 @@ interface GridSizeState {
 }
 
 const useGridSizeStore = create<GridSizeState>()((set) => ({
-  column: 0,
-  row: 0,
+  column: 20,
+  row: 20,
   setColumn: (newCol) => set(() => ({ column: newCol })),
   setRow: (newRow) => set(() => ({ row: newRow })),
 }));
