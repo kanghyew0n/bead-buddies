@@ -15,7 +15,7 @@ function App() {
           <GridSizeControl />
           <ImageUploader />
         </GridControlSection>
-        <Grid column={40} row={20} />
+        <Grid />
         <ColorPicker />
       </Body>
     </>
