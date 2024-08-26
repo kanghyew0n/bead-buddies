@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { commonFlexCenter } from "../assets/styles/common-style";
 
 const ImageUploader = () => {
   return (
@@ -23,10 +24,8 @@ const StyledImageUploader = styled.div`
 const ImageUploaderWrapper = styled.div`
   width: 150px;
   height: 110px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 10px;
+  ${commonFlexCenter}
 
   font-size: 14px;
   border-radius: 5px;

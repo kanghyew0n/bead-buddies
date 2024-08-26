@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
+import { commonFlexCenter } from "../assets/styles/common-style";
 
 const Header = () => {
   return (
@@ -36,9 +37,7 @@ const HeaderWrapper = styled.header`
 `;
 
 const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${commonFlexCenter}
   gap: 10px;
 `;
 

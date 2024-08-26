@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Delete from "../assets/images/delete.svg";
+import { commonFlexCenter } from "../assets/styles/common-style";
 
 const ColorChip = () => {
   return (
@@ -48,10 +49,8 @@ const ColorDisplay = styled.div`
 `;
 
 const DeleteButton = styled.div`
+  ${commonFlexCenter}
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 50px;
   transition: all 0.2s;
 
@@ -59,7 +58,7 @@ const DeleteButton = styled.div`
     width: 16px;
     height: 16px;
   }
-  
+
   &:hover {
     background-color: red;
   }
