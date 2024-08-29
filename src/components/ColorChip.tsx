@@ -2,12 +2,16 @@ import styled from "@emotion/styled";
 import Delete from "../assets/images/delete.svg";
 import { commonFlexCenter } from "../assets/styles/common-style";
 
-const ColorChip = () => {
+interface ColorDisplayProps {
+  hexCode: string;
+}
+
+const ColorChip = ({ hexCode, onClick }) => {
   return (
-    <StyledColorChip>
+    <StyledColorChip onClick={onClick}>
       <ColorInfo>
-        <ColorDisplay />
-        <span>#FF7979</span>
+        <ColorDisplay hexCode={hexCode} />
+        <span>{hexCode}</span>
       </ColorInfo>
       <DeleteButton>
         <img src={Delete} alt="delete button" />
@@ -40,12 +44,12 @@ const ColorInfo = styled.div`
   gap: 10px;
 `;
 
-const ColorDisplay = styled.div`
+const ColorDisplay = styled.div<ColorDisplayProps>`
   width: 20px;
   height: 20px;
   border-radius: 50px;
   border: 1px solid #000;
-  background-color: #ff7979;
+  background-color: ${({ hexCode }) => hexCode};
 `;
 
 const DeleteButton = styled.div`
