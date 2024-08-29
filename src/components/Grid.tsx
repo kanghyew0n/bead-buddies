@@ -26,7 +26,7 @@ const Grid = () => {
     const viewPortHeight = window.innerHeight;
     const maxGridWidth = viewPortWidth - WIDTH_PADDING - GRID_PADDING;
     const maxGridHeight = viewPortHeight - HEADER_HEIGHT - HEIGHT_PADDING;
-  
+
     return column > row
       ? Math.floor(maxGridWidth / column)
       : Math.floor(maxGridHeight / row);
@@ -54,7 +54,7 @@ const GridWrapper = styled.div`
   ${commonFlexCenter}
 `;
 
-const GridGuide = styled.div<GridProps>`
+const GridGuide = React.memo(styled.div<GridProps>`
   max-width: calc(100vw - ${WIDTH_PADDING}px);
   max-height: calc(100vh - ${HEADER_HEIGHT}px - ${HEIGHT_PADDING}px);
   width: fit-content;
@@ -63,7 +63,7 @@ const GridGuide = styled.div<GridProps>`
   grid-template-columns: ${({ column }) => `repeat(${column}, 1fr)`};
   grid-template-rows: ${({ row }) => `repeat(${row}, 1fr)`};
   box-shadow: rgba(0, 0, 0, 0.1) 10px 10px 20px;
-`;
+`);
 
 const GridItem = React.memo(styled.div<GridItemProps>`
   width: ${({ cellSize }) => `${cellSize}px`};
