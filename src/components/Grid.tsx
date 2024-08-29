@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useMemo, useState } from "react";
 import useGridSizeStore from "../store/useGridSizeStore";
+import useSelectedColorStore from "../store/useSelectedColorStore";
 import { commonFlexCenter } from "../assets/styles/common-style";
 
 const HEADER_HEIGHT = 70;
@@ -19,7 +20,31 @@ interface GridItemProps {
 
 const Grid = () => {
   const { column, row } = useGridSizeStore();
+  const { color } = useSelectedColorStore();
+
   const [cellSize, setCellSize] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = (index: number) => {
+    setIsDragging(true);
+    const element = document.getElementById(`grid-item-${index}`);
+    if (element) {
+      element.style.backgroundColor = color; // 배경색 변경
+    }
+  };
+
+  const handleMouseMove = (index: number) => {
+    if (isDragging) {
+      const element = document.getElementById(`grid-item-${index}`);
+      if (element) {
+        element.style.backgroundColor = color; // 배경색 변경
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   const calcCellSize = useMemo(() => {
     const viewPortWidth = window.innerWidth;
@@ -34,13 +59,26 @@ const Grid = () => {
 
   useEffect(() => {
     setCellSize(calcCellSize);
-  }, [column, row]);
+  }, [calcCellSize]);
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   return (
     <GridWrapper>
       <GridGuide column={column} row={row}>
         {Array.from({ length: column * row }).map((_, index) => (
-          <GridItem key={index} cellSize={cellSize} />
+          <GridItem
+            key={index}
+            id={`grid-item-${index}`}
+            cellSize={cellSize}
+            onMouseDown={() => handleMouseDown(index)}
+            onMouseMove={() => handleMouseMove(index)}
+          />
         ))}
       </GridGuide>
     </GridWrapper>
@@ -48,9 +86,7 @@ const Grid = () => {
 };
 
 const GridWrapper = styled.div`
-  height: calc(
-    100vh - ${HEADER_HEIGHT}px - ${GRID_PADDING}px
-  ); // header + T.B padding
+  height: calc(100vh - ${HEADER_HEIGHT}px - ${GRID_PADDING}px);
   ${commonFlexCenter}
 `;
 
