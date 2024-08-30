@@ -99,12 +99,15 @@ const GridGuide = React.memo(styled.div<GridProps>`
   grid-template-columns: ${({ column }) => `repeat(${column}, 1fr)`};
   grid-template-rows: ${({ row }) => `repeat(${row}, 1fr)`};
   box-shadow: rgba(0, 0, 0, 0.1) 10px 10px 20px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 `);
 
 const GridItem = React.memo(styled.div<GridItemProps>`
   width: ${({ cellSize }) => `${cellSize}px`};
   height: ${({ cellSize }) => `${cellSize}px`};
-  border: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   background-color: #fff;
 `);
 
