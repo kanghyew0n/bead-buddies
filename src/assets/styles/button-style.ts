@@ -4,7 +4,12 @@ interface ButtonStyleProps {
   hoverBackgroundColor?: string;
 }
 
-const buttonStyles: Record<string, ButtonStyleProps> = {
+interface ButtonSizeProps {
+  fontSize: string;
+  padding: string;
+}
+
+export const buttonStyles: Record<string, ButtonStyleProps> = {
   default: {
     backgroundColor: "#ffffff",
     color: "#000000",
@@ -21,4 +26,14 @@ const buttonStyles: Record<string, ButtonStyleProps> = {
   },
 };
 
-export default buttonStyles;
+export const buttonSize: Record<string, ButtonSizeProps> = {
+  sm: {
+    fontSize: "12px",
+    padding: "5px 10px",
+  },
+  md: {
+    fontSize: "14px",
+    padding: "10px 20px",
+  },
+};
+

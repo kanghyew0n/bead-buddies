@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import Grid from "./components/Grid";
 import Header from "./components/Header";
-import ColorPicker from "./components/ColorPicker";
+import ColorPalette from "./components/ColorPalette";
 import GridSizeControl from "./components/GridSizeControl";
 import ImageUploader from "./components/ImageUploader";
 
@@ -16,7 +16,7 @@ function App() {
           <ImageUploader />
         </GridControlSection>
         <Grid />
-        <ColorPicker />
+        <ColorPalette />
       </Body>
     </>
   );

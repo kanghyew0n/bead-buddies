@@ -24,8 +24,8 @@ const Header = () => {
       <ButtonWrapper>
         <Button role="dark">초기화</Button>
         <Divider />
-        <Button>이전</Button>
-        <Button>다음</Button>
+        <Button disabled>이전</Button>
+        <Button disabled>다음</Button>
         <Divider />
         <DownloadButton id="downloadLink" onClick={handleDownload}>
           다운로드

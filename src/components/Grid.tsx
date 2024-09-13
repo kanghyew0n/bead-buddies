@@ -6,7 +6,6 @@ import { commonFlexCenter } from "../assets/styles/common-style";
 
 const HEADER_HEIGHT = 70;
 const WIDTH_PADDING = 500; // 250 * 2
-const HEIGHT_PADDING = 110; // 55 * 2
 const GRID_PADDING = 40; // 20 * 2
 
 interface GridProps {
@@ -19,17 +18,17 @@ interface GridItemProps {
 }
 
 const Grid = () => {
-  const { column, row } = useGridSizeStore();
-  const { color } = useSelectedColorStore();
-
   const [cellSize, setCellSize] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
+  const { column, row } = useGridSizeStore();
+  const { selectedColor } = useSelectedColorStore();
 
   const handleMouseDown = (index: number) => {
     setIsDragging(true);
     const element = document.getElementById(`grid-item-${index}`);
     if (element) {
-      element.style.backgroundColor = color; // 배경색 변경
+      element.style.backgroundColor = selectedColor.hexCode; // 배경색 변경
     }
   };
 
@@ -37,7 +36,7 @@ const Grid = () => {
     if (isDragging) {
       const element = document.getElementById(`grid-item-${index}`);
       if (element) {
-        element.style.backgroundColor = color; // 배경색 변경
+        element.style.backgroundColor = selectedColor.hexCode; // 배경색 변경
       }
     }
   };
@@ -49,12 +48,12 @@ const Grid = () => {
   const calcCellSize = useMemo(() => {
     const viewPortWidth = window.innerWidth;
     const viewPortHeight = window.innerHeight;
-    const maxGridWidth = viewPortWidth - WIDTH_PADDING - GRID_PADDING;
-    const maxGridHeight = viewPortHeight - HEADER_HEIGHT - HEIGHT_PADDING;
+    const maxGridWidth = viewPortWidth - WIDTH_PADDING;
+    const maxGridHeight = viewPortHeight - HEADER_HEIGHT - GRID_PADDING;
 
-    return column > row
-      ? Math.floor(maxGridWidth / column)
-      : Math.floor(maxGridHeight / row);
+    const minCellSize = Math.min(maxGridWidth / column, maxGridHeight / row);
+
+    return Math.floor(minCellSize);
   }, [column, row]);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const Grid = () => {
   }, []);
 
   return (
-    <GridWrapper >
+    <GridWrapper>
       <GridGuide column={column} row={row} id="grid">
         {Array.from({ length: column * row }).map((_, index) => (
           <GridItem
@@ -92,7 +91,7 @@ const GridWrapper = styled.div`
 
 const GridGuide = React.memo(styled.div<GridProps>`
   max-width: calc(100vw - ${WIDTH_PADDING}px);
-  max-height: calc(100vh - ${HEADER_HEIGHT}px - ${HEIGHT_PADDING}px);
+  max-height: calc(100vh - ${HEADER_HEIGHT}px - ${GRID_PADDING}px);
   width: fit-content;
   height: fit-content;
   display: grid;

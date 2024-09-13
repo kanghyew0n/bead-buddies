@@ -1,13 +1,18 @@
 import { create } from "zustand";
+import { ColorType } from "../utils/color-type";
 
 interface SelectedColorState {
-  color: string;
-  setColor: (newColor: string) => void;
+  selectedColor: ColorType;
+  setSelectedColor: (newSelectedColor: ColorType) => void;
 }
 
 const useSelectedColorStore = create<SelectedColorState>()((set) => ({
-  color: '#000000',
-  setColor: (newColor) => set(() => ({ color: newColor })),
+  selectedColor: {
+    id: "1",
+    hexCode: "#000000",
+    count: 0,
+  },
+  setSelectedColor: (newSelectedColor) => set(() => ({ selectedColor: newSelectedColor })),
 }));
 
 export default useSelectedColorStore;

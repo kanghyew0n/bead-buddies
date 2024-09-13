@@ -1,26 +1,67 @@
+// import { useState } from "react";
 import styled from "@emotion/styled";
 import Delete from "../assets/images/delete.svg";
 import { commonFlexCenter } from "../assets/styles/common-style";
+import useSelectedColorStore from "../store/useSelectedColorStore";
+import useColorListStore from "../store/useColorListStore";
+// import ColorPickerModal from "./ColorPickerModal";
+import { ColorType } from "../utils/color-type";
 
-interface ColorDisplayProps {
-  hexCode: string;
+interface Props {
+  colorInfo: ColorType;
+  onClick: () => void;
 }
 
-const ColorChip = ({ hexCode, onClick }) => {
+interface ColorChipProps {
+  isActive?: boolean;
+}
+
+interface ColorDisplayProps {
+  color: string;
+}
+
+const ColorChip = ({ colorInfo, onClick }: Props) => {
+  // const [isShowColorModal, setIsShowColorModal] = useState<boolean>(false);
+  const { selectedColor } = useSelectedColorStore();
+  const { setRemoveColorList } = useColorListStore();
+
+  const handleDeleteColor = () => {
+    setRemoveColorList(selectedColor);
+  };
+
+  // const handleShowColorModal = () => {
+  //   setIsShowColorModal(!isShowColorModal);
+  // };
+
   return (
-    <StyledColorChip onClick={onClick}>
+    <StyledColorChip
+      isActive={selectedColor.id === colorInfo.id}
+      onClick={onClick}
+    >
       <ColorInfo>
-        <ColorDisplay hexCode={hexCode} />
-        <span>{hexCode}</span>
+        <ColorDisplay
+          color={colorInfo.hexCode}
+          // onClick={handleShowColorModal}
+        />
+        <span>{colorInfo.hexCode}</span>
       </ColorInfo>
-      <DeleteButton>
+      <DeleteButton onClick={handleDeleteColor}>
         <img src={Delete} alt="delete button" />
       </DeleteButton>
+
+      {/* 컬러 색상 변경을 위한 모달 */}
+      {/* {isShowColorModal && (
+        <ColorPickerModal
+          colorInfo={colorInfo}
+          handleCloseModal={handleShowColorModal}
+        />
+      )} */}
     </StyledColorChip>
   );
 };
 
-const StyledColorChip = styled.div`
+const StyledColorChip = styled.div<ColorChipProps>`
+  position: relative;
   width: 150px;
   padding: 8px;
   display: flex;
@@ -28,7 +69,9 @@ const StyledColorChip = styled.div`
   justify-content: space-between;
 
   border-radius: 50px;
-  border: 1px solid #cfcfcf;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ isActive }) => (isActive ? "#000" : "#cfcfcf")};
   background-color: #fff;
   transition: all 0.2s;
 
@@ -49,7 +92,7 @@ const ColorDisplay = styled.div<ColorDisplayProps>`
   height: 20px;
   border-radius: 50px;
   border: 1px solid #000;
-  background-color: ${({ hexCode }) => hexCode};
+  background-color: ${({ color }) => color};
 `;
 
 const DeleteButton = styled.div`
