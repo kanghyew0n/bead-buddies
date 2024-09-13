@@ -26,7 +26,7 @@ const ColorChip = ({ colorInfo, onClick }: Props) => {
   const { setRemoveColorList } = useColorListStore();
 
   const handleDeleteColor = () => {
-    setRemoveColorList(selectedColor);
+    setRemoveColorList(colorInfo);
   };
 
   // const handleShowColorModal = () => {
