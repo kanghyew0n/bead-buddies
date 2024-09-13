@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React, { useEffect, useMemo, useState } from "react";
 import useGridSizeStore from "../store/useGridSizeStore";
 import useSelectedColorStore from "../store/useSelectedColorStore";
-import useGridHistoryStore from "../store/useGridHistoryStore";
 import { commonFlexCenter } from "../assets/styles/common-style";
 
 const HEADER_HEIGHT = 70;
@@ -17,53 +16,34 @@ interface GridProps {
 
 interface GridItemProps {
   cellSize: number;
-  backgroundColor: string;
 }
 
 const Grid = () => {
   const { column, row } = useGridSizeStore();
   const { color } = useSelectedColorStore();
-  const initialState = Array(column * row).fill("#fff");
-  const {
-    gridState,
-    updateGridState,
-    undo,
-    redo,
-    initializeGrid,
-    currentIndex,
-    history,
-  } = useGridHistoryStore();
 
   const [cellSize, setCellSize] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
-  const [updateGrid, setUpdateGrid] = useState(initialState);
-
-  // 초기화
-  useEffect(() => {
-    initializeGrid(column, row);
-  }, [column, row, initializeGrid]);
-
   const handleMouseDown = (index: number) => {
     setIsDragging(true);
-
-    const newGridState = gridState;
-    newGridState[index] = color;
-
-    setUpdateGrid(newGridState);
+    const element = document.getElementById(`grid-item-${index}`);
+    if (element) {
+      element.style.backgroundColor = color; // 배경색 변경
+    }
   };
 
   const handleMouseMove = (index: number) => {
     if (isDragging) {
-      const newGridState = gridState;
-      newGridState[index] = color;
-      setUpdateGrid(newGridState);
+      const element = document.getElementById(`grid-item-${index}`);
+      if (element) {
+        element.style.backgroundColor = color; // 배경색 변경
+      }
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    updateGridState(updateGrid);
   };
 
   const calcCellSize = useMemo(() => {
@@ -89,28 +69,19 @@ const Grid = () => {
   }, []);
 
   return (
-    <div>
-      <button onClick={undo} disabled={currentIndex === 0}>
-        Undo
-      </button>
-      <button onClick={redo} disabled={currentIndex === history.length - 1}>
-        Redo
-      </button>
-      <GridWrapper>
-        <GridGuide column={column} row={row}>
-          {Array.from({ length: column * row }).map((_, index) => (
-            <GridItem
-              key={index}
-              id={`grid-item-${index}`}
-              cellSize={cellSize}
-              backgroundColor={updateGrid[index]}
-              onMouseDown={() => handleMouseDown(index)}
-              onMouseMove={() => handleMouseMove(index)}
-            />
-          ))}
-        </GridGuide>
-      </GridWrapper>
-    </div>
+    <GridWrapper >
+      <GridGuide column={column} row={row} id="grid">
+        {Array.from({ length: column * row }).map((_, index) => (
+          <GridItem
+            key={index}
+            id={`grid-item-${index}`}
+            cellSize={cellSize}
+            onMouseDown={() => handleMouseDown(index)}
+            onMouseMove={() => handleMouseMove(index)}
+          />
+        ))}
+      </GridGuide>
+    </GridWrapper>
   );
 };
 
@@ -137,7 +108,7 @@ const GridItem = React.memo(styled.div<GridItemProps>`
   height: ${({ cellSize }) => `${cellSize}px`};
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: #fff;
 `);
 
 export default Grid;
