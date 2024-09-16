@@ -1,8 +1,9 @@
-import styled from "@emotion/styled";
 import React, { useEffect, useMemo, useState } from "react";
+import styled from "@emotion/styled";
+import { theme } from "../styles/theme";
 import useGridSizeStore from "../store/useGridSizeStore";
 import useSelectedColorStore from "../store/useSelectedColorStore";
-import { commonFlexCenter } from "../assets/styles/common-style";
+import { commonFlexCenter } from "../styles/commonStyle";
 
 const HEADER_HEIGHT = 70;
 const WIDTH_PADDING = 500; // 250 * 2
@@ -98,16 +99,16 @@ const GridGuide = React.memo(styled.div<GridProps>`
   grid-template-columns: ${({ column }) => `repeat(${column}, 1fr)`};
   grid-template-rows: ${({ row }) => `repeat(${row}, 1fr)`};
   box-shadow: rgba(0, 0, 0, 0.1) 10px 10px 20px;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-right: 1px solid ${theme.colors.gray[200]};
+  border-bottom: 1px solid ${theme.colors.gray[200]};
 `);
 
 const GridItem = React.memo(styled.div<GridItemProps>`
   width: ${({ cellSize }) => `${cellSize}px`};
   height: ${({ cellSize }) => `${cellSize}px`};
-  border-left: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  background-color: #fff;
+  border-left: 1px solid ${theme.colors.gray[200]};
+  border-top: 1px solid ${theme.colors.gray[200]};
+  background-color: ${theme.colors.neutral.white};
 `);
 
 export default Grid;

@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import theme from "../styles/theme";
 import Button from "./common/Button";
 import Input from "./common/Input";
 import useGridSizeStore from "../store/useGridSizeStore";
-import { useEffect, useState } from "react";
 
 const GridSizeControl = () => {
   const { column, row, setColumn, setRow } = useGridSizeStore();
@@ -61,11 +62,11 @@ const StyledGridSizeControl = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid #000;
+  border: 1px solid ${theme.colors.neutral.black};
   border-radius: 5px;
 
   span {
-    font-size: 14px;
+    font-size: ${theme.fontSizes.base};
   }
 
   button {

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { buttonStyles, buttonSize } from "../../assets/styles/button-style";
+import theme from "../../styles/theme";
+import { buttonStyles, buttonSize } from "../../styles/buttonStyle";
 
 interface ButtonProps {
   role?: "default" | "point" | "dark";
@@ -40,13 +41,13 @@ const StyledButton = styled.button<ButtonProps>`
   border: 1px solid #000;
   color: ${({ role }) => buttonStyles[role]?.color};
   background-color: ${({ role }) =>
-    role ? buttonStyles[role]?.backgroundColor : "#fff"};
+    role ? buttonStyles[role]?.backgroundColor : theme.colors.neutral.white};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   transition: all 0.3s;
 
   &:hover {
     background-color: ${({ role }) =>
-      role ? buttonStyles[role]?.hoverBackgroundColor : "#f7f7f7"};
+      role ? buttonStyles[role]?.hoverBackgroundColor : theme.colors.primary.main};
   }
 `;
 

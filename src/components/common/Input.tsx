@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import theme from "../../styles/theme";
 
 interface InputProps {
   value: number;
@@ -11,11 +12,11 @@ const Input: React.FC<InputProps> = ({ value, onChange }) => {
 };
 
 const StyledInput = styled.input`
-  padding: 5px 10px;
   width: 60px;
-  font-size: 14px;
+  padding: ${theme.spacing.sm} ${theme.spacing.md};
+  font-size: ${theme.fontSizes.base};
+  border: 1px solid ${theme.colors.neutral.black};
   border-radius: 50px;
-  border: 1px solid #000;
   &:focus {
     outline: none;
   }

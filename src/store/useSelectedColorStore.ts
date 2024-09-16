@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ColorType } from "../utils/color-type";
+import { ColorType } from "../types/colorType";
 
 interface SelectedColorState {
   selectedColor: ColorType;

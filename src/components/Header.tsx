@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { theme } from "../styles/theme";
 import html2canvas from "html2canvas";
 import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
-import { commonFlexCenter } from "../assets/styles/common-style";
+import { commonFlexCenter } from "../styles/commonStyle";
 
 const Header = () => {
   const handleDownload = () => {
@@ -43,8 +44,8 @@ const HeaderWrapper = styled.header`
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-  border-bottom: 1px solid #000;
-  background-color: #fff;
+  border-bottom: 1px solid ${theme.colors.neutral.black};
+  background-color: ${theme.colors.neutral.white};
 
   img {
     width: 60px;
@@ -60,21 +61,21 @@ const ButtonWrapper = styled.div`
 const Divider = styled.div`
   width: 1px;
   height: 22px;
-  background-color: #000;
+  background-color: ${theme.colors.neutral.black};
 `;
 
 const DownloadButton = styled.a`
   padding: 10px 20px;
   border-radius: 50px;
-  border: 1px solid #000;
-  font-size: 14px;
-  color: #000;
-  background-color: #c8ff6f;
+  border: 1px solid ${theme.colors.neutral.black};
+  font-size: ${theme.fontSizes.base};
+  color: ${theme.colors.neutral.black};
+  background-color: ${theme.colors.primary.main};
   cursor: pointer;
   transition: all 0.3s;
   text-decoration: none;
   &:hover {
-    background-color: #b4ff3b;
+    background-color: ${theme.colors.primary[200]};
   }
 `;
 

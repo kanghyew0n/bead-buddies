@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { ChromePicker } from "react-color";
+import theme from "../styles/theme";
 import Button from "./common/Button";
 import useColorListStore from "../store/useColorListStore";
-import { ColorType } from "../utils/color-type";
+import { ColorType } from "../types/colorType";
 
 interface Props {
   colorInfo?: ColorType;
@@ -70,8 +71,8 @@ const StyledColorPickerModal = styled.div`
   position: absolute;
   right: 170px;
   border-radius: 8px;
-  border: 1px solid #000;
-  background-color: #fff;
+  border: 1px solid ${theme.colors.neutral.black};
+  background-color: ${theme.colors.neutral.white};
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 `;
@@ -81,11 +82,11 @@ const ButtonWrapper = styled.div`
   align-items: center;
   gap: 5px;
   padding: 7px 12px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${theme.colors.neutral.black};
 
   span {
     flex: 1;
-    font-size: 12px;
+    font-size: ${theme.fontSizes.sm};
   }
 `;
 

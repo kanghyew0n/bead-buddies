@@ -1,4 +1,5 @@
 import create from "zustand";
+import theme from "../styles/theme";
 
 interface GridStoreState {
   gridState: string[]; // 각 셀의 배경색 저장, 현재 그리드 상태 반영
@@ -17,7 +18,7 @@ const useGridHistoryStore = create<GridStoreState>((set) => ({
 
   // 전부 배경색으로 초기화 해주기
   initializeGrid: (column, row) => {
-    const initialState = Array(column * row).fill("#fff");
+    const initialState = Array(column * row).fill(theme.colors.neutral.white);
     set({
       gridState: initialState,
       history: [initialState],

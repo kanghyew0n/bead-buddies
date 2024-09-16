@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { commonFlexCenter } from "../assets/styles/common-style";
+import { commonFlexCenter } from "../styles/commonStyle";
 
 const ImageUploader = () => {
   return (

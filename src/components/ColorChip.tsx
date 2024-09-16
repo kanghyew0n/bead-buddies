@@ -1,11 +1,12 @@
 // import { useState } from "react";
 import styled from "@emotion/styled";
+import { theme } from "../styles/theme";
 import Delete from "../assets/images/delete.svg";
-import { commonFlexCenter } from "../assets/styles/common-style";
+import { commonFlexCenter } from "../styles/commonStyle";
 import useSelectedColorStore from "../store/useSelectedColorStore";
 import useColorListStore from "../store/useColorListStore";
 // import ColorPickerModal from "./ColorPickerModal";
-import { ColorType } from "../utils/color-type";
+import { ColorType } from "../types/colorType";
 
 interface Props {
   colorInfo: ColorType;
@@ -71,13 +72,14 @@ const StyledColorChip = styled.div<ColorChipProps>`
   border-radius: 50px;
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ isActive }) => (isActive ? "#000" : "#cfcfcf")};
-  background-color: #fff;
+  border-color: ${({ isActive }) =>
+    isActive ? theme.colors.neutral.black : theme.colors.gray[200]};
+  background-color: ${theme.colors.neutral.white};
   transition: all 0.2s;
 
   &:hover {
     cursor: pointer;
-    border-color: #000;
+    border-color: ${theme.colors.neutral.black};
   }
 `;
 
@@ -91,7 +93,7 @@ const ColorDisplay = styled.div<ColorDisplayProps>`
   width: 20px;
   height: 20px;
   border-radius: 50px;
-  border: 1px solid #000;
+  border: 1px solid ${theme.colors.neutral.black};
   background-color: ${({ color }) => color};
 `;
 
