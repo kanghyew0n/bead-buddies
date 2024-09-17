@@ -10,6 +10,7 @@ import { ColorType } from "../types/colorType";
 
 interface Props {
   colorInfo: ColorType;
+  hexCode: string;
   onClick: () => void;
 }
 
@@ -21,7 +22,7 @@ interface ColorDisplayProps {
   color: string;
 }
 
-const ColorChip = ({ colorInfo, onClick }: Props) => {
+const ColorChip = ({ colorInfo, hexCode, onClick }: Props) => {
   // const [isShowColorModal, setIsShowColorModal] = useState<boolean>(false);
   const { selectedColor } = useSelectedColorStore();
   const { setRemoveColorList } = useColorListStore();
@@ -41,10 +42,10 @@ const ColorChip = ({ colorInfo, onClick }: Props) => {
     >
       <ColorInfo>
         <ColorDisplay
-          color={colorInfo.hexCode}
+          color={hexCode}
           // onClick={handleShowColorModal}
         />
-        <span>{colorInfo.hexCode}</span>
+        <span>{hexCode}</span>
       </ColorInfo>
       <DeleteButton onClick={handleDeleteColor}>
         <img src={Delete} alt="delete button" />

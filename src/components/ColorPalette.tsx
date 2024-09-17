@@ -30,6 +30,7 @@ const ColorPalette = () => {
           <ColorChip
             key={idx}
             colorInfo={colorInfo}
+            hexCode={colorInfo.hexCode}
             onClick={() => setSelectedColor(colorInfo)}
           />
         ))}
