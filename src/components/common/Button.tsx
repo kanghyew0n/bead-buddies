@@ -3,17 +3,17 @@ import styled from "@emotion/styled";
 import theme from "../../styles/theme";
 import { buttonStyles, buttonSize } from "../../styles/buttonStyle";
 
-interface ButtonProps {
+export interface ButtonProps {
   role?: "default" | "point" | "dark";
   width?: "100%" | "auto";
   disabled?: boolean;
   size?: "sm" | "md";
-  children: string;
+  children: React.ReactNode;
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  role,
+  role = "default",
   width = "auto",
   disabled = false,
   size = "md",
@@ -44,6 +44,7 @@ const StyledButton = styled.button<ButtonProps>`
     role ? buttonStyles[role]?.backgroundColor : theme.colors.neutral.white};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   transition: all 0.3s;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 
   &:hover {
     background-color: ${({ role }) =>
