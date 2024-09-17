@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { theme } from "../styles/theme";
 import html2canvas from "html2canvas";
+import { theme } from "../styles/theme";
 import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
 import { commonFlexCenter } from "../styles/commonStyle";
@@ -13,7 +13,7 @@ const Header = () => {
       const $downloadLink = document.getElementById(
         "downloadLink"
       ) as HTMLAnchorElement;
-      console.log("$downloadLink", $downloadLink);
+
       $downloadLink.href = canvas.toDataURL();
       $downloadLink.download = "비즈발도안.png";
     });
