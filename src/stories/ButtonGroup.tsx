@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import styled from "@emotion/styled";
 
 const ButtonGroupWrapper = styled.div`
-display: flex;
-gap: 20px;
+  display: flex;
+  gap: 20px;
 `;
 
 const ButtonGroup: React.FC<{ children: React.ReactNode }> = ({ children }) => {

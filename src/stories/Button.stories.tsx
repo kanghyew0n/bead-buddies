@@ -41,7 +41,7 @@ Default.args = {
 // Disabled Button
 export const Disabled = Template.bind({});
 Disabled.args = {
-  children: "Button",
+  children: "Disabled Button",
   size: "md",
   disabled: true,
   width: "auto",
@@ -50,7 +50,7 @@ Disabled.args = {
 // Full Width Button
 export const FullWidth = Template.bind({});
 FullWidth.args = {
-  children: "Button",
+  children: "Full Width Button",
   size: "md",
   disabled: false,
   width: "100%",
@@ -59,7 +59,7 @@ FullWidth.args = {
 // Small Button
 export const SmallButton = Template.bind({});
 SmallButton.args = {
-  children: "Button",
+  children: "Small Button",
   size: "sm",
   disabled: false,
   width: "auto",
