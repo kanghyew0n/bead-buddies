@@ -15,6 +15,10 @@ npm install
 npm run dev
 ```
 
+## Link
+* https://bead-buddies.vercel.app/
+* [storybook](https://66e968052d38c6b421d6dd25-siigahmprb.chromatic.com/?path=/story/common-button--default)
+
 <br/>
 
 ## 📺 Demo
