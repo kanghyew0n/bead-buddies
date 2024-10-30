@@ -4,8 +4,11 @@ import { theme } from "../styles/theme";
 import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
 import { commonFlexCenter } from "../styles/commonStyle";
+import useGridSizeStore from "../store/useGridSizeStore";
 
 const Header = () => {
+  const { column, row } = useGridSizeStore();
+
   const handleDownload = () => {
     const $targetNode = document.getElementById("grid");
 
@@ -19,11 +22,24 @@ const Header = () => {
     });
   };
 
+  // 임시 초기화
+  // grid 정보를 저장해서 히스토리 관리 필요함
+  const handleReset = () => {
+    Array.from({ length: column * row }).forEach((_, index) => {
+      const element = document.getElementById(`grid-item-${index}`);
+      if (element) {
+        element.style.backgroundColor = theme.colors.neutral.white; 
+      }
+    });
+  };
+
   return (
     <HeaderWrapper>
       <img src={Logo} alt="logo" />
       <ButtonWrapper>
-        <Button role="dark">초기화</Button>
+        <Button role="dark" onClick={handleReset}>
+          초기화
+        </Button>
         <Divider />
         <Button disabled>이전</Button>
         <Button disabled>다음</Button>
