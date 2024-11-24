@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       <Header />
+      <p>테스트</p>
       <Body>
         <GridControlSection>
           <GridSizeControl />
