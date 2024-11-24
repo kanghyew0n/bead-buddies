@@ -4,7 +4,7 @@ import theme from "../styles/theme";
 interface GridStoreState {
   gridState: string[]; // 각 셀의 배경색 저장, 현재 그리드 상태 반영
   history: string[][]; // 셀의 배경색의 변화를 기록
-  currentIndex: number;
+  currentHistoryIndex: number;
   initializeGrid: (column: number, row: number) => void; // 초기화 (전부 #fff)
   updateGridState: (newGridState: string[]) => void; // 업데이트 할 그리드 상태
   undo: () => void;
@@ -14,7 +14,7 @@ interface GridStoreState {
 const useGridHistoryStore = create<GridStoreState>((set) => ({
   gridState: [],
   history: [[]],
-  currentIndex: 0,
+  currentHistoryIndex: 0,
 
   // 전부 배경색으로 초기화 해주기
   initializeGrid: (column, row) => {
@@ -22,7 +22,7 @@ const useGridHistoryStore = create<GridStoreState>((set) => ({
     set({
       gridState: initialState,
       history: [initialState],
-      currentIndex: 0,
+      currentHistoryIndex: 0,
     });
   },
 
@@ -33,26 +33,26 @@ const useGridHistoryStore = create<GridStoreState>((set) => ({
       return {
         gridState: newGridState,
         history: newHistory,
-        currentIndex: newHistory.length - 1, // 전체 기록중 마지막
+        currentHistoryIndex: newHistory.length - 1, // 전체 기록중 마지막
       };
     }),
 
   undo: () =>
     set((state) => {
-      if (state.currentIndex > 0) {
+      if (state.currentHistoryIndex > 0) {
         return {
-          gridState: state.history[state.currentIndex - 1],
-          currentIndex: state.currentIndex - 1,
+          gridState: state.history[state.currentHistoryIndex - 1],
+          currentHistoryIndex: state.currentHistoryIndex - 1,
         };
       }
     }),
 
   redo: () =>
     set((state) => {
-      if (state.currentIndex < state.history.length - 1) {
+      if (state.currentHistoryIndex < state.history.length - 1) {
         return {
-          gridState: state.history[state.currentIndex + 1],
-          currentIndex: state.currentIndex + 1,
+          gridState: state.history[state.currentHistoryIndex + 1],
+          currentHistoryIndex: state.currentHistoryIndex + 1,
         };
       }
     }),
