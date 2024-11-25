@@ -5,9 +5,11 @@ import Button from "./common/Button";
 import Logo from "../assets/images/logo.png";
 import { commonFlexCenter } from "../styles/commonStyle";
 import useGridSizeStore from "../store/useGridSizeStore";
+import useGridHistoryStore from "../store/useGridHistoryStore";
 
 const Header = () => {
   const { column, row } = useGridSizeStore();
+  const { history, currentHistoryIndex } = useGridHistoryStore();
 
   const handleDownload = () => {
     const $targetNode = document.getElementById("grid");
@@ -28,7 +30,19 @@ const Header = () => {
     Array.from({ length: column * row }).forEach((_, index) => {
       const element = document.getElementById(`grid-item-${index}`);
       if (element) {
-        element.style.backgroundColor = theme.colors.neutral.white; 
+        element.style.backgroundColor = theme.colors.neutral.white;
+      }
+    });
+  };
+
+  // currentHistoryIndex 값도 바꿔줘야함
+  const handleUndo = () => {
+    Array.from({ length: column * row }).forEach((_, index) => {
+      const element = document.getElementById(`grid-item-${index}`);
+      if (element) {
+        if (history[currentHistoryIndex].includes(index)) {
+          element.style.backgroundColor = theme.colors.neutral.white;
+        }
       }
     });
   };
@@ -41,7 +55,7 @@ const Header = () => {
           초기화
         </Button>
         <Divider />
-        <Button disabled>이전</Button>
+        <Button onClick={handleUndo}>이전</Button>
         <Button disabled>다음</Button>
         <Divider />
         <DownloadButton id="downloadLink" onClick={handleDownload}>

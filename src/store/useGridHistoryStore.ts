@@ -2,11 +2,11 @@ import create from "zustand";
 import theme from "../styles/theme";
 
 interface GridStoreState {
-  gridState: string[]; // 각 셀의 배경색 저장, 현재 그리드 상태 반영
-  history: string[][]; // 셀의 배경색의 변화를 기록
+  gridState: number[]; // 각 셀의 배경색 저장, 현재 그리드 상태 반영
+  history: number[][]; // 셀의 배경색의 변화를 기록
   currentHistoryIndex: number;
   initializeGrid: (column: number, row: number) => void; // 초기화 (전부 #fff)
-  updateGridState: (newGridState: string[]) => void; // 업데이트 할 그리드 상태
+  updateHistory: (newGridState: number[]) => void; // 업데이트 할 그리드 상태
   undo: () => void;
   redo: () => void;
 }
@@ -26,9 +26,11 @@ const useGridHistoryStore = create<GridStoreState>((set) => ({
     });
   },
 
-  updateGridState: (newGridState) =>
+
+  updateHistory: (newGridState) =>
     set((state) => {
-      console.log('newGridState',newGridState)
+      console.log("Current history:", state.history);
+      console.log("New grid state:", newGridState);
       const newHistory = [...state.history, newGridState];
       return {
         gridState: newGridState,

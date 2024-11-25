@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { theme } from "../styles/theme";
 import useGridSizeStore from "../store/useGridSizeStore";
 import useSelectedColorStore from "../store/useSelectedColorStore";
+import useGridHistoryStore from "../store/useGridHistoryStore"; // 전체 Hook 가져오기
 import { commonFlexCenter } from "../styles/commonStyle";
 
 const HEADER_HEIGHT = 70;
@@ -21,7 +22,8 @@ interface GridItemProps {
 const Grid = () => {
   const [cellSize, setCellSize] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-
+  const [gridState, setGridState] = useState<number[]>([]);
+  const { updateHistory, history } = useGridHistoryStore();
   const { column, row } = useGridSizeStore();
   const { selectedColor } = useSelectedColorStore();
 
@@ -35,6 +37,10 @@ const Grid = () => {
 
   const handleMouseMove = (index: number) => {
     if (isDragging) {
+      setGridState((prevState) => {
+        return prevState.includes(index) ? prevState : [...prevState, index];
+      });
+
       const element = document.getElementById(`grid-item-${index}`);
       if (element) {
         element.style.backgroundColor = selectedColor.hexCode; // 배경색 변경
@@ -67,6 +73,17 @@ const Grid = () => {
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
+
+  // 함수 내부에서는 변경 감지가 비동기적으로 발생해서 useEffect에서 감지?
+  useEffect(() => {
+    if (!isDragging) {
+      updateHistory(gridState);
+    }
+  }, [isDragging]);
+
+  useEffect(() => {
+    setGridState([]);
+  }, [history]);
 
   return (
     <GridWrapper>
