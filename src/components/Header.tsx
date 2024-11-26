@@ -9,7 +9,7 @@ import useGridHistoryStore from "../store/useGridHistoryStore";
 
 const Header = () => {
   const { column, row } = useGridSizeStore();
-  const { history, currentHistoryIndex } = useGridHistoryStore();
+  const { history, currentHistoryIndex, undo, redo } = useGridHistoryStore();
 
   const handleDownload = () => {
     const $targetNode = document.getElementById("grid");
@@ -45,7 +45,20 @@ const Header = () => {
         }
       }
     });
+    undo();
   };
+
+  const handleRedo = () => {
+    Array.from({ length: column * row }).forEach((_, index) => {
+      const element = document.getElementById(`grid-item-${index}`);
+      if (element) {
+        if (history[currentHistoryIndex + 1].includes(index)) {
+          element.style.backgroundColor = theme.colors.neutral.black;
+        }
+      }
+    });
+    redo();
+  }
 
   return (
     <HeaderWrapper>
@@ -56,7 +69,7 @@ const Header = () => {
         </Button>
         <Divider />
         <Button onClick={handleUndo}>이전</Button>
-        <Button disabled>다음</Button>
+        <Button onClick={handleRedo}>다음</Button>
         <Divider />
         <DownloadButton id="downloadLink" onClick={handleDownload}>
           다운로드
