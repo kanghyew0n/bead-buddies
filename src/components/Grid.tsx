@@ -22,8 +22,8 @@ interface GridItemProps {
 const Grid = () => {
   const [cellSize, setCellSize] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [gridState, setGridState] = useState<number[]>([]);
-  const { updateHistory, history } = useGridHistoryStore();
+  const [currentGrid, setCurrentGrid] = useState<number[]>([]);
+  const { gridState, history, updateHistory } = useGridHistoryStore();
   const { column, row } = useGridSizeStore();
   const { selectedColor } = useSelectedColorStore();
 
@@ -37,8 +37,10 @@ const Grid = () => {
 
   const handleMouseMove = (index: number) => {
     if (isDragging) {
-      setGridState((prevState) => {
-        return prevState.includes(index) ? prevState : [...prevState, index];
+      setCurrentGrid((prevState) => {
+        return prevState.includes(index) || gridState.includes(index)
+          ? prevState
+          : [...prevState, index];
       });
 
       const element = document.getElementById(`grid-item-${index}`);
@@ -77,12 +79,12 @@ const Grid = () => {
   // 함수 내부에서는 변경 감지가 비동기적으로 발생해서 useEffect에서 감지?
   useEffect(() => {
     if (!isDragging) {
-      updateHistory(gridState);
+      updateHistory(currentGrid);
     }
   }, [isDragging]);
 
   useEffect(() => {
-    setGridState([]);
+    setCurrentGrid([]);
   }, [history]);
 
   return (
