@@ -1,10 +1,8 @@
-// import { useState } from "react";
 import styled from "@emotion/styled";
 import { theme } from "../styles/theme";
 import Delete from "../assets/images/delete.svg";
 import { commonFlexCenter } from "../styles/commonStyle";
 import useColorListStore from "../store/useColorStore";
-// import ColorPickerModal from "./ColorPickerModal";
 import { ColorType } from "../types/colorType";
 
 interface Props {
@@ -22,7 +20,6 @@ interface ColorDisplayProps {
 }
 
 const ColorChip = ({ colorInfo, hexCode, onClick }: Props) => {
-  // const [isShowColorModal, setIsShowColorModal] = useState<boolean>(false);
   const { selectedColor } = useColorListStore();
   const { setRemoveColorList } = useColorListStore();
 
@@ -30,33 +27,18 @@ const ColorChip = ({ colorInfo, hexCode, onClick }: Props) => {
     setRemoveColorList(colorInfo);
   };
 
-  // const handleShowColorModal = () => {
-  //   setIsShowColorModal(!isShowColorModal);
-  // };
-
   return (
     <StyledColorChip
       isActive={selectedColor.id === colorInfo.id}
       onClick={onClick}
     >
       <ColorInfo>
-        <ColorDisplay
-          color={hexCode}
-          // onClick={handleShowColorModal}
-        />
+        <ColorDisplay color={hexCode} />
         <span>{hexCode}</span>
       </ColorInfo>
       <DeleteButton onClick={handleDeleteColor}>
         <img src={Delete} alt="delete button" />
       </DeleteButton>
-
-      {/* 컬러 색상 변경을 위한 모달 */}
-      {/* {isShowColorModal && (
-        <ColorPickerModal
-          colorInfo={colorInfo}
-          handleCloseModal={handleShowColorModal}
-        />
-      )} */}
     </StyledColorChip>
   );
 };
