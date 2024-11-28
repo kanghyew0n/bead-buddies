@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 import { theme } from "../styles/theme";
 import Delete from "../assets/images/delete.svg";
 import { commonFlexCenter } from "../styles/commonStyle";
-import useSelectedColorStore from "../store/useSelectedColorStore";
-import useColorListStore from "../store/useColorListStore";
+import useColorListStore from "../store/useColorStore";
 // import ColorPickerModal from "./ColorPickerModal";
 import { ColorType } from "../types/colorType";
 
@@ -24,7 +23,7 @@ interface ColorDisplayProps {
 
 const ColorChip = ({ colorInfo, hexCode, onClick }: Props) => {
   // const [isShowColorModal, setIsShowColorModal] = useState<boolean>(false);
-  const { selectedColor } = useSelectedColorStore();
+  const { selectedColor } = useColorListStore();
   const { setRemoveColorList } = useColorListStore();
 
   const handleDeleteColor = () => {

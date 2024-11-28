@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { theme } from "../styles/theme";
 import useGridSizeStore from "../store/useGridSizeStore";
-import useSelectedColorStore from "../store/useSelectedColorStore";
+import useColorListStore from "../store/useColorStore";
 import useGridHistoryStore from "../store/useGridHistoryStore"; // 전체 Hook 가져오기
 import { commonFlexCenter } from "../styles/commonStyle";
 
@@ -25,7 +25,7 @@ const Grid = () => {
   const [currentGrid, setCurrentGrid] = useState<number[]>([]);
   const { gridState, history, updateHistory } = useGridHistoryStore();
   const { column, row } = useGridSizeStore();
-  const { selectedColor } = useSelectedColorStore();
+  const { selectedColor } = useColorListStore();
 
   const handleMouseDown = (index: number) => {
     setIsDragging(true);

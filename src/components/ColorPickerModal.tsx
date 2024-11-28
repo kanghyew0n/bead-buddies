@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { ChromePicker } from "react-color";
 import theme from "../styles/theme";
 import Button from "./common/Button";
-import useColorListStore from "../store/useColorListStore";
+import useColorListStore from "../store/useColorStore";
 import { ColorType } from "../types/colorType";
 
 interface Props {

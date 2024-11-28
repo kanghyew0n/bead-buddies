@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Button from "./common/Button";
 import ColorChip from "./ColorChip";
-import useSelectedColorStore from "../store/useSelectedColorStore";
+import useColorListStore from "../store/useColorStore";
 import ColorPickerModal from "./ColorPickerModal";
-import useColorListStore from "../store/useColorListStore";
 
 const ColorPalette = () => {
   const [isShowColorModal, setIsShowColorModal] = useState<boolean>(false);
   const { colorList } = useColorListStore();
-  const { setSelectedColor } = useSelectedColorStore();
+  const { setSelectedColor } = useColorListStore();
 
   const handleToggleColorModal = (e: React.MouseEvent) => {
     e.stopPropagation();
