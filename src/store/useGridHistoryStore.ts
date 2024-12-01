@@ -29,8 +29,6 @@ const useGridHistoryStore = create<GridStoreState>((set) => ({
 
   updateHistory: (newGridState) =>
     set((state) => {
-      console.log("Current history:", state.history);
-      console.log("New grid state:", newGridState);
       const newHistory = [...state.history, newGridState];
       return {
         gridState: newGridState,

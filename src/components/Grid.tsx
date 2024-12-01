@@ -78,7 +78,7 @@ const Grid = () => {
 
   // 함수 내부에서는 변경 감지가 비동기적으로 발생해서 useEffect에서 감지?
   useEffect(() => {
-    if (!isDragging) {
+    if (!isDragging && currentGrid.length > 0) {
       updateHistory(currentGrid);
     }
   }, [isDragging]);

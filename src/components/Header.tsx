@@ -24,8 +24,6 @@ const Header = () => {
     });
   };
 
-  // 임시 초기화
-  // grid 정보를 저장해서 히스토리 관리 필요함
   const handleReset = () => {
     Array.from({ length: column * row }).forEach((_, index) => {
       const element = document.getElementById(`grid-item-${index}`);
@@ -35,7 +33,6 @@ const Header = () => {
     });
   };
 
-  // currentHistoryIndex 값도 바꿔줘야함
   const handleUndo = () => {
     Array.from({ length: column * row }).forEach((_, index) => {
       const element = document.getElementById(`grid-item-${index}`);
@@ -60,6 +57,8 @@ const Header = () => {
     redo();
   }
 
+  console.log('history, currentHistoryIndex',history, currentHistoryIndex)
+
   return (
     <HeaderWrapper>
       <img src={Logo} alt="logo" />
@@ -68,8 +67,8 @@ const Header = () => {
           초기화
         </Button>
         <Divider />
-        <Button onClick={handleUndo}>이전</Button>
-        <Button onClick={handleRedo}>다음</Button>
+        <Button disabled={currentHistoryIndex === 0} onClick={handleUndo}>이전</Button>
+        <Button disabled={currentHistoryIndex === history.length - 1} onClick={handleRedo}>다음</Button>
         <Divider />
         <DownloadButton id="downloadLink" onClick={handleDownload}>
           다운로드
