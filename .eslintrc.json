@@ -1,0 +1,25 @@
+{
+  "plugins": ["import"],
+
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"], // 그룹핑 순서
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"], // external로 간주되어 alias 적용안되는 문제 해결
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true // 대문자 우선
+        },
+        "newlines-between": "always" // 그룹별 모두 한줄 띄우기
+      }
+    ]
+  }
+}
