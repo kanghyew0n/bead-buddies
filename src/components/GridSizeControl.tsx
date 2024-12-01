@@ -13,6 +13,11 @@ const GridSizeControl = () => {
   const handleClickSaveBtn = () => {
     if (column === newCol && row === newRow) return; // 값 변경이 없을 경우
 
+    if (newCol <= 0 || newCol > 50 || newRow <= 0 || newRow > 50) {
+      setNewCol(column);
+      setNewRow(row);
+      return alert("1~50 사이의 수만 입력 가능해요.");
+    }
     /* TODO: 이전 버튼이 활성화 될 경우(작업 내역이 있을 경우)만 안내 띄우도록
      * if (!confirm("값을 변경하면 이전 작업이 모두 초기화됩니다.")) return; */
     if (column !== newCol) setColumn(newCol);

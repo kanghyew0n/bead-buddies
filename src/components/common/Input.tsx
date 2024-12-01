@@ -8,7 +8,15 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ value, onChange }) => {
-  return <StyledInput value={value} onChange={onChange}></StyledInput>;
+  return (
+    <StyledInput
+      type="number"
+      min={1}
+      max={50}
+      value={value}
+      onChange={onChange}
+    />
+  );
 };
 
 const StyledInput = styled.input`
