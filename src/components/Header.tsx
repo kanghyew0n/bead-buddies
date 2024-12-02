@@ -33,13 +33,30 @@ const Header = () => {
     });
   };
 
+  // 칸마다 히스토리 가지도록?
+  // currentHistoryIndex - 1 에서만 보는게 아니라 전체를 봐여하는듯
   const handleUndo = () => {
     Array.from({ length: column * row }).forEach((_, index) => {
       const element = document.getElementById(`grid-item-${index}`);
       if (element) {
-        if (history[currentHistoryIndex].includes(index)) {
-          element.style.backgroundColor = theme.colors.neutral.white;
-        }
+        const undoContents = history[currentHistoryIndex].filter(
+          (item) => item.index === index
+        );
+
+        // 이전 history[currentHistoryIndex - 1]에서도 동일한 index가 존재하는지 확인
+        const previousContents = history[currentHistoryIndex - 1]?.find(
+          (item) => item.index === index
+        );
+
+        undoContents.forEach(() => {
+          if (previousContents) {
+            // 중복되는 index가 있을 경우 해당 색상으로 칠함
+            element.style.backgroundColor = previousContents.color;
+          } else {
+            // 중복되는 index가 없을 경우 기본 색상 적용
+            element.style.backgroundColor = theme.colors.neutral.white;
+          }
+        });
       }
     });
     undo();
@@ -49,13 +66,16 @@ const Header = () => {
     Array.from({ length: column * row }).forEach((_, index) => {
       const element = document.getElementById(`grid-item-${index}`);
       if (element) {
-        if (history[currentHistoryIndex + 1].includes(index)) {
-          element.style.backgroundColor = theme.colors.neutral.black;
-        }
+        const redoContents = history[currentHistoryIndex + 1].filter(
+          (item) => item.index === index
+        );
+        redoContents.forEach((item) => {
+          element.style.backgroundColor = item.color;
+        });
       }
     });
     redo();
-  }
+  };
 
   return (
     <HeaderWrapper>
@@ -65,8 +85,15 @@ const Header = () => {
           초기화
         </Button>
         <Divider />
-        <Button disabled={currentHistoryIndex === 0} onClick={handleUndo}>이전</Button>
-        <Button disabled={currentHistoryIndex === history.length - 1} onClick={handleRedo}>다음</Button>
+        <Button disabled={currentHistoryIndex === 0} onClick={handleUndo}>
+          이전
+        </Button>
+        <Button
+          disabled={currentHistoryIndex === history.length - 1}
+          onClick={handleRedo}
+        >
+          다음
+        </Button>
         <Divider />
         <DownloadButton id="downloadLink" onClick={handleDownload}>
           다운로드

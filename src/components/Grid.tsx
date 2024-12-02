@@ -10,6 +10,11 @@ const HEADER_HEIGHT = 70;
 const WIDTH_PADDING = 500; // 250 * 2
 const GRID_PADDING = 40; // 20 * 2
 
+type GridState = {
+  index: number;
+  color: string;
+};
+
 interface GridProps {
   column: number;
   row: number;
@@ -22,8 +27,8 @@ interface GridItemProps {
 const Grid = () => {
   const [cellSize, setCellSize] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [currentGrid, setCurrentGrid] = useState<number[]>([]);
-  const { gridState, history, updateHistory } = useGridHistoryStore();
+  const [currentGrid, setCurrentGrid] = useState<GridState[]>([]);
+  const {  history, updateHistory } = useGridHistoryStore();
   const { column, row } = useGridSizeStore();
   const { selectedColor } = useColorListStore();
 
@@ -38,9 +43,12 @@ const Grid = () => {
   const handleMouseMove = (index: number) => {
     if (isDragging) {
       setCurrentGrid((prevState) => {
-        return prevState.includes(index) || gridState.includes(index)
+        // 현재 이미 있거나 기존에 있으면 유지
+        const existsPrev = prevState.some((item) => item.index === index);
+
+        return existsPrev
           ? prevState
-          : [...prevState, index];
+          : [...prevState, { index, color: selectedColor.hexCode }];
       });
 
       const element = document.getElementById(`grid-item-${index}`);
