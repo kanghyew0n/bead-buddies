@@ -57,8 +57,6 @@ const Header = () => {
     redo();
   }
 
-  console.log('history, currentHistoryIndex',history, currentHistoryIndex)
-
   return (
     <HeaderWrapper>
       <img src={Logo} alt="logo" />
